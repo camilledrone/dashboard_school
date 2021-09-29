@@ -10,14 +10,14 @@ We are going to process data on these former students, analyze them and display 
 The objectives of this dashboard are that incoming students should be able to have a global view of the previous class as well as have access to the curricula of former students in order to better orient their future school choice.
 
 ## Realisation
-Les fonctionnalités suivantes sont réalisées :
- - F1 visualiser les effectifs des différentes matières
- - F2 visualiser le pourcentage de réussite dans chaque matière ont bien été satisfaites
- - F3 visualiser l’effectif total de l’université
- - F6 visualiser le pourcentage de réussite global dans une matière 
- - F7 visualiser le pourcentage d’hommes et de femmes dans une matière 
- - F8 visualiser la moyenne des notes dans une matière au fil du temps 
- - F9 visualiser la moyenne au dernier test ACT par genre
+The following features are realized:
+ - F1 visualize the number of students in each subject
+ - F2 visualize the percentage of success in each subject
+ - F3 visualize the total number of students of the university
+ - F6 visualize the percentage of global success in a subject 
+ - F7 visualize the percentage of men and women in a subject 
+ - F8 view the average grade in a subject over time 
+ - F9 view the average score on the last ACT test by gender
 
 The first step was to program a web server, for that the Python language was used and the framework (or development infrastructure) Flask [9]. Indeed, Python is very easy to use and pleasant to use.
 Flask, unlike other frameworks, does not impose any structure; one can develop an entire application on a single file. Nevertheless, we have followed certain conventions: 
