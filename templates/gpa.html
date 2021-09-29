@@ -1,0 +1,73 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <title>Test</title>
+
+</head>
+
+<body>
+  <div id="act"></div>
+  <script>document.addEventListener('DOMContentLoaded', function () {
+        const chart = Highcharts.chart('act', {
+  chart: {
+      type: 'bar'
+  },
+  title: {
+      text: 'Last ACT Test'
+  },
+  xAxis: {
+      categories: ['English', 'Maths', 'Read', 'Science', 'Compose'],
+      title: {
+          text: null
+      }
+  },
+  yAxis: {
+      min: 0,
+      title: {
+          text: 'Marks',
+          align: 'high'
+      },
+      labels: {
+          overflow: 'justify'
+      }
+  },
+  plotOptions: {
+      bar: {
+          dataLabels: {
+              enabled: true
+          }
+      }
+  },
+  legend: {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'top',
+      x: -40,
+      y: 80,
+      floating: true,
+      borderWidth: 1,
+      backgroundColor:
+          Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+      shadow: true
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      name: 'Men',
+      data: [28.76,29.98,28.74,28.60,29.21]
+  }, {
+      name: 'Women',
+      data: [29.02,27.92,28.76,26.63,28.27]
+  }]
+  });
+  });
+  </script>
+</body>
+</html>

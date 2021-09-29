@@ -1,0 +1,630 @@
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <!-- import des différentes librairies (highcharts, bootstrap, ...) js et css pour la construction et le design du dashboard -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- définition de la couleur de fond (gris clair)-->
+  <style>
+  .content{
+    background: #F1F1F1;
+  }
+  </style>
+
+    <!-- définition du titre de page (dans l'onglet)-->
+    <title>DASHBOARD</title>
+
+</head>
+
+<body>
+  <div class="content">
+
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <div class="row mb-5">
+        <div class="col-md-12">
+          <!-- les balises précédentes utilisent les librairies de bootstrap et permettent d'organiser les différents composants-->
+          <h1 class="text-center" style="color:#6495ED";> <!-- titre affiché en haut de la page avec définition de la couleur en CSS -->
+            DASHBOARD
+          </h1>
+        </div>
+      </div>
+
+      <div class="row mb-()">
+        <div class="col-md-12">
+          <div class="shadow-lg bg-white rounded p-3"> <!-- on met un effet d'ombre autour des composants visuels-->
+            <!-- on indique d'afficher le composant dont l'identifiant est "container", ce composant est défini dans le script JavaScript-->
+            <!-- bubble chart -->
+            <div id="container"></div>
+            <!-- on rajoute une petite description du graphe pour les utilisateurs-->
+            <p class="text-center" style="color:#6495ED";>
+            Here is a packed bubble chart giving the number of student by course.
+            If you want to know more about a course click on the corresponding bubble
+            </p>
+          </div>
+          <!-- script JavaScript qui permet d'obtenir le bubble chart-->
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                  const chart = Highcharts.chart('container', { // utilisation de la librairie highcharts
+              chart: {
+                  type: 'packedbubble', // on défini ici le type de graphe que nous ssouhaitons avoir
+                  height: '80%'
+              },
+              title: {
+                  text: 'Number of students by subject'
+              },
+              tooltip: {
+                  useHTML: true,
+                  pointFormat: '<b>{point.name}:</b> {point.value} students' // tooltip va permettre à l'utilisateur d'obtenir des informations en passant sa souris sur un élément du bubble chart
+              },
+              plotOptions: {
+                  packedbubble: {
+                      minSize: '10%',
+                      maxSize: '100%',
+                      zMin: 0,
+                      zMax: 100000,
+                      layoutAlgorithm: {
+                          splitSeries: false,
+                          gravitationalConstant: 0.02
+                      },
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.name}',
+                          filter: {
+                              property: 'y',
+                              operator: '>',
+                              value: 40000 // pour les matières dont l'effectif est faible on n'affiche pas le nom dans la bulle pour un meilleur esthétisme et plus de lisibilité
+                          },
+                          style: {
+                              color: 'black',
+                              textOutline: 'none',
+                              fontWeight: 'normal'
+                          }
+                      }
+                  }
+                  ,
+                  // dans les 11 prochaines lignes, nous indiquons que lorsqu'un utilisateur clique ("click function")sur une bulle
+                  // il doit être redirigé vers la page de la matière correspondante
+                  // on indique la page sur laquelle il doit être redirigé avec "location.href"
+                  series: {
+                  cursor: 'pointer',
+                  point: {
+                      events: {
+                          click: function () {
+                            location.href = '/dashboard/' +
+                                    this.options.name;
+                          }
+                      }
+                  }
+              }
+              },
+              // voici les données du graphe
+              //highcharts utilise une structure bien précise : une liste de dictionnaire contenant eux-même une liste de dictionnaire
+              // il faut respecter cette structure pour que nos données soient utilisables par highcharts
+
+                      series: [
+                          {
+                          name: 'ANTHRCUL',
+                          data: [
+                          {
+                              name: "ANTHRCUL",
+                              value: 27978
+                          },]},
+
+                          {
+                          name: 'ARTDES',
+                          data: [
+                          {
+                              name: "ARTDES",
+                              value: 7072
+                          },]},
+                          {
+
+
+                          name: 'ASIAN',
+                          data: [
+                          {
+                              name: "ASIAN",
+                              value: 1215
+                          },]},
+
+                          {
+                          name: 'ASTRO',
+                          data: [
+                          {
+                              name: "ASTRO",
+                              value: 3188
+                          },]},
+
+                          {
+                          name: 'BE ',
+                          data: [
+                          {
+                              name: "BE ",
+                              value: 6281
+                          },]},
+
+                          {
+                          name: 'BIOLOGY',
+                          data: [
+                          {
+                              name: "BIOLOGY",
+                              value: 69597
+                          },]},
+
+                          {
+                          name: 'CICS',
+                          data: [
+                          {
+                              name: "CICS",
+                              value: 1710
+                          },]},
+                          {
+                          name: 'CHEM ',
+                          data: [
+                          {
+                              name: "CHEM ",
+                              value: 184512
+                          },]},
+                          {
+                          name: 'BUDDHST',
+                          data: [
+                          {
+                              name: "BUDDHST",
+                              value: 214
+                          },]},
+                          {
+                          name: 'BIT',
+                          data: [
+                          {
+                              name: "BIT",
+                              value:  3356
+                          },]},
+                          {
+                          name: 'CLCIV ',
+                          data: [
+                          {
+                              name: "CLCIV ",
+                              value:  9238
+                          },]},
+                          {
+                          name: 'CMPTRSC',
+                          data: [
+                          {
+                              name: "CMPTRSC",
+                              value: 2608
+                          },]},
+                          {
+                          name: ' COMM ',
+                          data: [
+                          {
+                              name: " COMM ",
+                              value: 18577
+                          },]},
+                          {
+                          name: 'DANCE',
+                          data: [
+                          {
+                              name: "DANCE",
+                              value:  2229
+                          },]},
+                          {
+                          name: 'ECON',
+                          data: [
+                          {
+                              name: "ECON",
+                              value: 78307
+                          },]},
+                          {
+                          name: ' EECS',
+                          data: [
+                          {
+                              name: " EECS",
+                              value: 34227
+                          },]},
+                          {
+                          name: 'ENGLISH ',
+                          data: [
+                          {
+                              name: "ENGLISH ",
+                              value: 108447
+                          },]},
+                          {
+                          name: 'ENGR',
+                          data: [
+                          {
+                              name: "ENGR",
+                              value: 43340
+                          },]},
+                          {
+                          name: 'FIN',
+                          data: [
+                          {
+                              name: "FIN",
+                              value: 7695
+                          },]},
+
+                          {
+                          name: 'FRENCH',
+                          data: [
+                          {
+                              name: "FRENCH",
+                              value: 8550
+                          },]},
+
+                          {
+                          name: 'GEOSCI',
+                          data: [
+                          {
+                              name: "GEOSCI",
+                              value: 19261
+                          },]},
+
+                          {
+                          name: 'GTBOOKS',
+                          data: [
+                          {
+                              name: "GTBOOKS",
+                              value: 7272
+                          },]},
+
+                          {
+                          name: 'HISTORY',
+                          data: [
+                          {
+                              name: "HISTORY",
+                              value: 4756
+                          },]},
+
+                          {
+                          name: 'LHC ',
+                          data: [
+                          {
+                              name: "LHC ",
+                              value: 12916
+                          },]},
+
+                          {
+                          name: 'LING',
+                          data: [
+                          {
+                              name: "LING",
+                              value:  8007
+                          },]},
+
+                          {
+                          name: 'MATH',
+                          data: [
+                          {
+                              name: "MATH",
+                              value: 127551
+                          },]},
+
+                          {
+                          name: 'MKT',
+                          data: [
+                          {
+                              name: "MKT",
+                              value:  9725
+                          },]},
+                          {
+                          name: 'MECHENG',
+                          data: [
+                          {
+                              name: "MECHENG",
+                              value: 14926
+                          },]},
+                          {
+                          name: 'MCDB',
+                          data: [
+                          {
+                              name: "MCDB",
+                              value: 2951
+                          },]},
+                          {
+                          name: 'OB',
+                          data: [
+                          {
+                              name: "OB",
+                              value: 2270
+                          },]},
+
+                          {
+                          name: 'NURS',
+                          data: [
+                          {
+                              name: "NURS",
+                              value: 733
+                          },]},
+
+                          {
+                          name: 'MO',
+                          data: [
+                          {
+                              name: "MO",
+                              value: 4345
+                          },]},
+
+                          {
+                          name: 'PHYSICS ',
+                          data: [
+                          {
+                              name: "PHYSICS ",
+                              value: 114254
+                          },]},
+
+                          {
+                          name: 'PHIL',
+                          data: [
+                          {
+                              name: "PHIL",
+                              value:  853
+                          },]},
+
+                          {
+                          name: 'OMS ',
+                          data: [
+                          {
+                              name: "OMS ",
+                              value:  7110
+                          },]},
+
+                          {
+                          name: 'OM',
+                          data: [
+                          {
+                              name: "OM",
+                              value: 1632
+                          },]},
+
+                          {
+                          name: 'RELIGION',
+                          data: [
+                          {
+                              name: "RELIGION",
+                              value: 1006
+                          },]},
+                          {
+                          name: 'PSYCH',
+                          data: [
+                          {
+                              name: "PSYCH",
+                              value: 122574
+                          },]},
+                          {
+                          name: 'POLSCI',
+                          data: [
+                          {
+                              name: "POLSCI",
+                              value: 34305
+                          },]},
+                          {
+                          name: 'SPANISH',
+                          data: [
+                          {
+                              name: "SPANISH",
+                              value: 60189
+                          },]},
+                          {
+                          name: 'SOC ',
+                          data: [
+                          {
+                              name: "SOC ",
+                              value: 24935
+                          },]},
+                          {
+                          name: 'SMS',
+                          data: [
+                          {
+                              name: "SMS",
+                              value: 1376
+                          },]},
+                          {
+                          name: 'STATS ',
+                          data: [
+                          {
+                              name: "STATS ",
+                              value:48101
+                          },]},
+
+                          {
+                          name: 'STRATEGY ',
+                          data: [
+                          {
+                              name: "STRATEGY ",
+                              value: 3444
+                          },]},
+
+                          {
+                          name: 'UC',
+                          data: [
+                          {
+                              name: "UC",
+                              value: 28531
+                          },]},
+
+                      {
+                          name: 'WOMENSTD',
+                          data: [
+                          {
+                              name: "WOMENSTD",
+                              value: 14761
+                          }, ]},
+                          {
+                          name: 'ACC',
+                          data: [{
+                              name: 'ACC',
+                              value: 17648
+                          },]},
+
+                          {
+                          name: 'AMCULT',
+                          data: [
+                          {
+                              name: "AMCULT",
+                              value: 3022
+                          },]},
+                          {
+                          name: 'ANTHRBIO',
+                          data: [
+                          {
+                              name: "ANTHRBIO",
+                              value: 10270
+                                  }
+
+                          ]
+                      }]
+                  });
+              });
+          </script>
+      </div>
+      </div>
+
+
+<!-- la construction des autres éléments grpahiques se fait sur le même principe-->
+      <div class="row mb-5">
+        <div class="col-md-12">
+          <!-- on rajoute une balise par rapport à ce qui était fait précédement,
+          ce qui va permettre d'afficher les deux prochains graphes en ligne-->
+
+          <!-- effectif de l'école-->
+          <div class="col-md-6">
+            <div class="shadow-lg bg-white m-1 rounded p-1">
+              <h2 class="text-center"> Total number of students </h2>
+              <h1 class="text-center" style="color:#6495ED";>  153267  </h1  >
+            </div>
+          </div>
+
+          <!-- pourcentage de réussite de l'école
+          + information du grpahe qui permet à l'utilisateur d'accéder à la page sur le "last act test" -->
+        <div class="col-md-6">
+          <div class="shadow-lg bg-white m-1 rounded p-1">
+            <div id="success"></div>
+            <p class="text-center" >
+              Here is the global percentage of success in the school. It is calculated thanks to the GPA ( grade point average).
+              Click <a href="/dashboard/gpa/"> here </a> to know more about it.
+            </p>
+            </div>
+
+            <!-- script javascript pour le graph du pourcentage de réussite-->
+           <script>
+             function renderIcons() {
+
+             // Move icon
+             if (!this.series[0].icon) {
+                 this.series[0].icon = this.renderer.path(['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8])
+                     .attr({
+                         stroke: '#303030',
+                         'stroke-linecap': 'round',
+                         'stroke-linejoin': 'round',
+                         'stroke-width': 2,
+                         zIndex: 10
+                     })
+                     .add(this.series[2].group);
+             }
+             this.series[0].icon.translate(
+                 this.chartWidth / 2 - 10,
+                 this.plotHeight / 2 - this.series[0].points[0].shapeArgs.innerR -
+                     (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
+             );
+             }
+
+             document.addEventListener('DOMContentLoaded', function () {
+               const chart = Highcharts.chart('success', {
+
+             chart: {
+                 type: 'solidgauge',
+                 height: '90%',
+                 events: {
+                     render: renderIcons
+                 }
+             },
+
+             title: {
+                 text: 'High School GPA',
+                 style: {
+                     //fontSize: '24px'
+                 }
+             },
+
+             tooltip: {
+                 borderWidth: 0,
+                 backgroundColor: 'none',
+                 shadow: false,
+                 style: {
+                     //fontSize: '50px'
+                 },
+                 valueSuffix: '%',
+                 pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}</span>',
+                 positioner: function (labelWidth) {
+                     return {
+                         x: (this.chart.chartWidth - labelWidth) / 2,
+                         y: (this.chart.plotHeight / 2) + 15
+                     };
+                 }
+             },
+
+             pane: {
+                 startAngle: 0,
+                 endAngle: 360,
+                 background: [{ // Track for Move
+                     outerRadius: '112%',
+                     innerRadius: '88%',
+                     backgroundColor: Highcharts.color(Highcharts.getOptions().colors[0])
+                         .setOpacity(0.3)
+                         .get(),
+                     borderWidth: 0
+                 }]
+             },
+
+             yAxis: {
+                 min: 0,
+                 max: 100,
+                 lineWidth: 0,
+                 tickPositions: []
+             },
+
+             plotOptions: {
+                 solidgauge: {
+                     dataLabels: {
+                         enabled: false
+                     },
+                     linecap: 'round',
+                     stickyTracking: false,
+                     rounded: true
+                 }
+             },
+
+             series: [{
+                 name: 'Success',
+                 data: [{
+                     color: Highcharts.getOptions().colors[0],
+                     radius: '112%',
+                     innerRadius: '88%',
+                     y: 89.5
+                 }]
+             }]
+             });
+             });
+           </script>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  </div>
+</body>
+</html>
