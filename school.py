@@ -62,7 +62,7 @@ import csv
 ## il suffit d'ouvrir un navigateur web et d'entrer l'URL donné par l'invite de commande puis le chemin des pages ci dessous
 
 ## page principale
-@school.route('/dashboard/')
+@school.route('/')
 def effectif():
     m=render_template("dash.html")
     return m
